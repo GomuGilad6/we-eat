@@ -19,4 +19,5 @@ class RestaurantSerializer < ActiveModel::Serializer
              :max_delivery_time
 
   belongs_to :cuisine
+  has_many :reviews
 end

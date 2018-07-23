@@ -1,9 +1,9 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
-cuisines_attrs = [
-  {name: 'Asian', icon: 'I'},
-  {name: 'Vegeterian', icon: '2'}
+cuisine_attrs = [
+  { name: 'Asian', icon: 'I' },
+  { name: 'Vegeterian', icon: '2' }
 ]
 
 restaurant_attrs = [
@@ -31,9 +31,25 @@ restaurant_attrs = [
   }
 ]
 
-cuisines = Cuisine.create(cuisines_attrs)
+review_attrs = [
+  {
+    name: 'Monkey D Luffy',
+    rating: 3,
+    comment: 'Awesome restaurant! Really amazing food, I want more'
+  },
+  {
+    name: 'Roronoa Zoro',
+    rating: 2,
+    comment: 'Well, I guess the food was pretty good'
+  }
+]
+
+cuisines = Cuisine.create(cuisine_attrs)
 cuisines.each.with_index do |cuisine, index|
   cuisine_id = cuisine[:id]
   restaurant_attr = restaurant_attrs[index].merge(cuisine_id: cuisine_id)
-  Restaurant.create(restaurant_attr)
+  restaurant = Restaurant.create(restaurant_attr)
+  restaurant_id = restaurant[:id]
+  review_attr = review_attrs[index].merge(restaurant_id: restaurant_id)
+  Review.create(review_attr)
 end
