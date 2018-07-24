@@ -10,6 +10,12 @@
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.2.0",
+    "eslint-nibble": "^4.2.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
     "webpack-dev-server": "2.11.2"
   }
 }
