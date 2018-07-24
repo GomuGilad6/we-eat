@@ -2,10 +2,9 @@ class ReviewsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def create
-    restaurant = Restaurant.find(params[:review][:restaurant_id])
-    review = restaurant.reviews.create(review_params)
+    review = Review.create!(review_params)
     render json: review
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordInvalid => e
     render json: {
       error: e.to_s
     }, status: :not_found
@@ -14,6 +13,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:name, :rating, :comment)
+    params.require(:review).permit(:restaurant_id, :name, :rating, :comment)
   end
 end
