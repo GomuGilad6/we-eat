@@ -2,6 +2,7 @@
   "name": "we-eat",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.4.1",
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
     "prop-types": "^15.6.2",
