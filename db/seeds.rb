@@ -46,10 +46,10 @@ review_attrs = [
 
 cuisines = Cuisine.create(cuisine_attrs)
 cuisines.each.with_index do |cuisine, index|
-  cuisine_id = cuisine[:id]
-  restaurant_attr = restaurant_attrs[index].merge(cuisine_id: cuisine_id)
-  restaurant = Restaurant.create(restaurant_attr)
-  restaurant_id = restaurant[:id]
-  review_attr = review_attrs[index].merge(restaurant_id: restaurant_id)
-  Review.create(review_attr)
+  restaurant_attr = restaurant_attrs[index]
+  restaurant = cuisine.restaurants.build(restaurant_attr)
+  restaurant.save
+  review_attr = review_attrs[index]
+  review = restaurant.reviews.build(review_attr)
+  review.save
 end

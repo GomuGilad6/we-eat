@@ -1,6 +1,4 @@
 class ReviewsController < ApplicationController
-  protect_from_forgery with: :null_session
-
   def create
     review = Review.create!(review_params)
     render json: review
