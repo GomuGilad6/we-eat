@@ -20,13 +20,14 @@ ActiveRecord::Schema.define(version: 2018_07_23_133515) do
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_cuisines_on_name", unique: true
   end
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.bigint "cuisine_id"
     t.integer "rating"
-    t.boolean "accepts_10bis"
+    t.boolean "accepts_10bis", default: false
     t.string "address"
     t.json "coordinates"
     t.integer "max_delivery_time"
@@ -37,7 +38,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_133515) do
 
   create_table "reviews", force: :cascade do |t|
     t.string "name"
-    t.integer "rating"
+    t.integer "rating", default: 0
     t.text "comment"
     t.bigint "restaurant_id"
     t.datetime "created_at", null: false
