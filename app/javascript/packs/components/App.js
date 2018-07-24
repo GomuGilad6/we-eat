@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Hero from "./Hero";
-import RestaurantList from "./RestaurantList";
+import Restaurants from "../containers/Restaurants";
 
 const App = styled("div")`
   font-family: 'Lato', 'Helvetica Neue', sans-serif;
@@ -11,6 +11,6 @@ const App = styled("div")`
 export default () => (
   <App>
     <Hero />
-    <RestaurantList />
+    <Restaurants />
   </App>
 );

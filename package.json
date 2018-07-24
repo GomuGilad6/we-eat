@@ -4,6 +4,7 @@
   "dependencies": {
     "@material-ui/core": "^1.4.1",
     "@rails/webpacker": "3.5",
+    "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
@@ -12,6 +13,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "eslint": "^5.2.0",
     "eslint-nibble": "^4.2.1",
     "eslint-plugin-import": "^2.13.0",
