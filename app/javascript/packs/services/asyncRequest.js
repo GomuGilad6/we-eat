@@ -9,8 +9,6 @@ export default async ({ method = 'get', url, data }) => {
     });
     return result.data;
   } catch (e) {
-    return {
-      error: `Failed to fetch data: ${e}`
-    }
+    throw e;
   }
 };

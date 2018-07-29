@@ -1,16 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 
 import Hero from "./Hero";
 import Restaurants from "../containers/Restaurants";
 
-const App = styled("div")`
-  font-family: 'Lato', 'Helvetica Neue', sans-serif;
+injectGlobal`
+  body {
+    font-family: 'Lato', 'Helvetica Neue', sans-serif;
+  }
 `;
 
 export default () => (
-  <App>
+  <div>
     <Hero />
     <Restaurants />
-  </App>
+  </div>
 );

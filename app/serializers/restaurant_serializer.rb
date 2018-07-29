@@ -15,7 +15,7 @@
 #
 
 class RestaurantSerializer < ActiveModel::Serializer
-  attributes :name, :rating, :accepts_10bis, :address, :coordinates,
+  attributes :id, :name, :rating, :accepts_10bis, :address, :coordinates,
              :max_delivery_time
 
   belongs_to :cuisine

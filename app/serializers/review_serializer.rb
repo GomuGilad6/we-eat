@@ -12,5 +12,5 @@
 #
 
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :name, :rating, :comment
+  attributes :id, :name, :rating, :comment, :restaurant_id
 end
