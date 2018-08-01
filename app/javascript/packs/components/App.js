@@ -1,10 +1,15 @@
 import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 
-import Hero from "./Hero";
 import Restaurants from "../containers/Restaurants";
 
+import Vegan from '../../../assets/fonts/vegan.ttf';
+
 injectGlobal`
+  @font-face {
+    font-family: 'vegan';
+    src: url(${Vegan});
+  }
   body {
     font-family: 'Lato', 'Helvetica Neue', sans-serif;
   }
@@ -12,7 +17,6 @@ injectGlobal`
 
 export default () => (
   <div>
-    <Hero />
     <Restaurants />
   </div>
 );

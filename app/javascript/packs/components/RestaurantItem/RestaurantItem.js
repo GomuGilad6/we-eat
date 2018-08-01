@@ -7,7 +7,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import Modal from '@material-ui/core/Modal';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -17,6 +16,7 @@ import ReactStars from 'react-stars';
 
 import ReviewList from "../ReviewList";
 import ReviewForm from "../ReviewForm";
+import withTooltip from "../withTooltip";
 
 import tenbis_logo from "../../../../assets/images/10bis-logo.png";
 
@@ -88,6 +88,19 @@ const ModalContent = styled("div")`
   }
 `;
 
+const Icon = styled("div")`
+  font-size: 50px;
+  flex: 1;
+  margin-right: 20px;
+`;
+
+const Content = styled("div")`
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center;
+  flex: 10;
+`;
+
 class RestaurantItem extends React.Component {
   state = {
     isOpen: false,
@@ -107,7 +120,7 @@ class RestaurantItem extends React.Component {
 
   _renderStars = (ratings) => {
     if (ratings.length) {
-      return this._withTooltip(
+      return withTooltip(
         (
           <div>
             <ReactStars
@@ -165,7 +178,7 @@ class RestaurantItem extends React.Component {
   _renderExpand = (numOfReviews) => {
     if (numOfReviews > 0) {
       const expand = this.state.isOpen ? <ExpandLess /> : <ExpandMore />;
-      return this._withTooltip(
+      return withTooltip(
         (
           (
             <ExpandWrapper
@@ -184,23 +197,15 @@ class RestaurantItem extends React.Component {
     reviewFormOpen: !reviewFormOpen
   }));
 
-  _withTooltip = (component, title) => (
-    <Tooltip
-      title={title}
-    >
-      {component}
-    </Tooltip>
-  );
+  _onSelect = () => {
+    this.props.onSelect(this.props.coordinates);
+  };
 
-  _renderListItem = () => {
-    const { name, address, max_delivery_time, reviews, accepts_10bis } = this.props;
-    return (
-      <StyledListItem
-          divider={!this.state.isOpen}
-      >
-        {this._renderDetails(name, address, max_delivery_time, reviews, accepts_10bis)}
+  _renderButtons = (reviews) => {
+    if (!this.props.compact) {
+      return (
         <Buttons>
-          {this._withTooltip(
+          {withTooltip(
             (
               <StyledAddComment
                 onClick={this._toggleReviewModal}
@@ -209,6 +214,29 @@ class RestaurantItem extends React.Component {
           )}
           {this._renderExpand(reviews.length)}
         </Buttons>
+      );
+    }
+  };
+
+  _renderIcon = icon => (
+    <Icon>
+      {icon}
+    </Icon>
+  );
+
+  _renderListItem = () => {
+    const { icon, name, address, max_delivery_time, reviews, accepts_10bis } = this.props;
+    return (
+      <StyledListItem
+          divider={!this.state.isOpen && !this.props.compact}
+          button={!this.props.compact}
+          onClick={this._onSelect}
+      >
+        {this._renderIcon(icon)}
+        <Content>
+          {this._renderDetails(name, address, max_delivery_time, reviews, accepts_10bis)}
+          {this._renderButtons(reviews)}
+        </Content>
       </StyledListItem>
     );
   };
@@ -264,22 +292,30 @@ class RestaurantItem extends React.Component {
 
 RestaurantItem.propTypes = {
   id: PropTypes.number,
+  icon: PropTypes.string,
   name: PropTypes.string,
   address: PropTypes.string,
   max_delivery_time: PropTypes.number,
   reviews: PropTypes.array,
   accepts_10bis: PropTypes.bool,
-  addReview: PropTypes.func
+  coordinates: PropTypes.object,
+  addReview: PropTypes.func,
+  onSelect: PropTypes.func,
+  compact: PropTypes.bool
 };
 
 RestaurantItem.defaultProps = {
   id: undefined,
+  icon: "",
   name: "",
   address: "",
   max_delivery_time: 0,
   reviews: [],
   accepts_10bis: false,
-  addReview: () => {}
+  coordinates: {},
+  addReview: () => {},
+  onSelect: () => {},
+  compact: false
 };
 
 export default RestaurantItem;

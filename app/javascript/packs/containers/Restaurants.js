@@ -2,24 +2,54 @@ import React from 'react';
 import styled from 'styled-components';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import Hero from "../components/Hero";
 import RestaurantList from "../components/RestaurantList";
+import Map from "../components/Map";
+import SearchBar from "../components/SearchBar";
+import Filters from "../components/Filters";
+import RestaurantItem from "../components/RestaurantItem";
 
 import asyncRequest from "../services/asyncRequest";
+import filterRestaurants from "../helpers/filterRestaurants";
+import sortRestaurants from "../helpers/sortRestaurants";
 
 const Content = styled("div")`
-
+  display: flex;
+  height: calc(100vh - 450px);
 `;
 
 const ListWrapper = styled("div")`
   width: 30%;
-  height: calc(100vh - 400px);
+  height: 100%;
   overflow-y: scroll;
+`;
+
+const MapWrapper = styled("div")`
+  width: 70%;
+`;
+
+const SearchBarWrapper = styled("div")`
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%,0);
+  width: 20%;
 `;
 
 class restaurants extends React.Component {
   state = {
     fetching: true,
-    restaurants: []
+    restaurants: [],
+    cuisines: ["Asian", "Vegeterian"],
+    filters: {
+      search: "",
+      cuisine: "",
+      max_delivery_time: 0,
+      rating: 0,
+      accepts_10bis: false
+    },
+    sortBy: "",
+    center: { lat: 32.0731537, lng: 34.781884 }
   };
 
   componentDidMount() {
@@ -28,7 +58,16 @@ class restaurants extends React.Component {
     }).then(data => {
       this.setState({
         fetching: false,
-        restaurants: data
+        restaurants: data.map(restaurant => (
+          {
+            ...restaurant,
+            markerOpen: {
+              hover: false,
+              click: false
+            },
+            ByClick: false
+          }
+        ))
       });
     }).catch(e => {
       console.log(e);
@@ -91,16 +130,57 @@ class restaurants extends React.Component {
     });
   };
 
-  _renderRestaurants = () => (
+  _onRestaurantSelect = coordinates => this.setState({
+    center: coordinates
+  });
+
+  _renderRestaurants = (restaurants) => (
     <ListWrapper>
       <RestaurantList
-        restaurants={this.state.restaurants}
+        restaurants={restaurants}
         addReview={this._addReview}
+        onSelect={this._onRestaurantSelect}
       />
     </ListWrapper>
   );
 
-  _renderContent = () => {
+  _getLocations = restaurants => restaurants.map(restaurantProps => {
+    return {
+      coordinates: restaurantProps.coordinates,
+      icon: restaurantProps.cuisine.icon,
+      infoWindow: (
+        <RestaurantItem
+          compact
+          icon={restaurantProps.cuisine.icon}
+          {...restaurantProps}
+        />
+      ),
+      openInfoWindow: (e) => this.setState(state => {
+        const eventType = (e === undefined || e.va.type === "click") ? "click" : "hover";
+        return {
+          ...state,
+          restaurants: state.restaurants.map(restaurant => {
+            if (restaurant.id === restaurantProps.id) {
+              restaurant.markerOpen[eventType] = !restaurant.markerOpen[eventType];
+            }
+            return restaurant;
+          })
+        };
+      }),
+      markerOpen: restaurantProps.markerOpen.hover || restaurantProps.markerOpen.click
+    }
+  });
+
+  _renderMap = (restaurants) => (
+    <MapWrapper>
+      <Map
+        locations={this._getLocations(restaurants)}
+        center={this.state.center}
+      />
+    </MapWrapper>
+  );
+
+  _renderContent = (restaurants) => {
     if (this.state.fetching) {
       return (
         <div>
@@ -110,15 +190,68 @@ class restaurants extends React.Component {
     }
     return (
       <Content>
-        {this._renderRestaurants()}
+        {this._renderRestaurants(restaurants)}
+        {this._renderMap(restaurants)}
       </Content>
     );
   };
 
+  _onChange = (filter) => (e, val) => {
+    const value = val !== undefined ? val : e.target !== undefined ? e.target.value : e;
+    return this.setState({
+      filters: {
+        ...this.state.filters,
+        [filter]: value
+      }
+    });
+  };
+
+  _renderHero = () => (
+    <Hero>
+      <SearchBarWrapper>
+        <SearchBar
+          value={this.state.filters.search}
+          onChange={this._onChange("search")}
+        />
+      </SearchBarWrapper>
+    </Hero>
+  );
+
+  _onSort = (e) => this.setState({
+    sortBy: e.target.value
+  });
+
+  _renderFilters = () => {
+    console.log(this.state);
+    const { sortBy, filters } = this.state;
+    const { cuisine, max_delivery_time, rating, accepts_10bis } = filters;
+    return (
+      <Filters
+        cuisine={cuisine}
+        cuisines={this.state.cuisines}
+        max_delivery_time={max_delivery_time}
+        rating={rating}
+        accepts_10bis={accepts_10bis}
+        sort={{ sortBy, onSort: this._onSort }}
+        onChange={this._onChange}
+      />
+    ); 
+  };
+
   render() {
+    const filteredRestaurants = filterRestaurants({
+      restaurants: this.state.restaurants,
+      filters: this.state.filters
+    });
+    const restaurants = sortRestaurants({
+      restaurants: filteredRestaurants,
+      sortBy: this.state.sortBy
+    });
     return (
       <div>
-        {this._renderContent()}
+        {this._renderHero()}
+        {this._renderFilters()}
+        {this._renderContent(restaurants)}
         <NotificationContainer />
       </div>
     );

@@ -8,6 +8,7 @@ import RestaurantItem from './';
 storiesOf('RestaurantItem', module)
   .add('default', () => (
     <RestaurantItem
+      icon={text("icon", "🍕")}
       name={text("name", "Oban Koban")}
       address={text("address", "Ibn Gavirol 53, Tel Aviv")}
       max_delivery_time={number("max_delivery_time", 60)}
