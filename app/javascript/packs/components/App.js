@@ -1,14 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 
-import Hero from "./Hero";
+import Restaurants from "../containers/Restaurants";
 
-const App = styled("div")`
-  font-family: 'Lato', 'Helvetica Neue', sans-serif;
+import Vegan from '../../../assets/fonts/vegan.ttf';
+
+injectGlobal`
+  @font-face {
+    font-family: 'vegan';
+    src: url(${Vegan});
+  }
+  body {
+    font-family: 'Lato', 'Helvetica Neue', sans-serif;
+  }
 `;
 
 export default () => (
-  <App>
-    <Hero />
-  </App>
+  <div>
+    <Restaurants />
+  </div>
 );
