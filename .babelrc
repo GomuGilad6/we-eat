@@ -21,8 +21,6 @@
       {
         "spec": true
       }
-    ],
-    "transform-runtime",
-    "transform-async-to-generator"
+    ]
   ]
 }
