@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-export default ({ method = 'get', url, data }) => new Promise((resolve, reject) => {
-  axios({
-    method,
-    url,
-    data
-  }).then(
-    result => resolve(result.data)
-  ).catch(e => reject(e))
-});
+export default async ({ method = 'get', url, data }) => {
+  try {
+    const result = await axios({
+      method,
+      url,
+      data
+    });
+    return result.data;
+  } catch (e) {
+    throw e;
+  }
+};
