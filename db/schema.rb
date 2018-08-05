@@ -20,13 +20,11 @@ ActiveRecord::Schema.define(version: 2018_07_23_133515) do
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_cuisines_on_name", unique: true
   end
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.bigint "cuisine_id"
-    t.integer "rating"
     t.boolean "accepts_10bis", default: false
     t.string "address"
     t.json "coordinates"

@@ -16,7 +16,7 @@ storiesOf('RestaurantItem', module)
         object("reviews", [  
           {  
              "name": "Monkey D Luffy",
-             "rating": 3,
+             "rating": 5,
              "comment": "Awesome restaurant! Really amazing food, I want more"
           }
        ])

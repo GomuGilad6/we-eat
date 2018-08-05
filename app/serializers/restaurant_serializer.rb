@@ -5,7 +5,6 @@
 #  id                :bigint(8)        not null, primary key
 #  name              :string
 #  cuisine_id        :bigint(8)
-#  rating            :integer
 #  accepts_10bis     :boolean
 #  address           :string
 #  coordinates       :json
@@ -15,7 +14,7 @@
 #
 
 class RestaurantSerializer < ActiveModel::Serializer
-  attributes :id, :name, :rating, :accepts_10bis, :address, :coordinates,
+  attributes :id, :name, :accepts_10bis, :address, :coordinates,
              :max_delivery_time
 
   belongs_to :cuisine

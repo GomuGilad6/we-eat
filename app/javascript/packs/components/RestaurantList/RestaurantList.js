@@ -25,7 +25,7 @@ class RestaurantList extends React.Component {
     return restaurants.map(restaurant => {
       return (
         <RestaurantItem
-          key={restaurant.name}
+          key={`${restaurant.id}-${restaurant.name}`}
           icon={restaurant.cuisine.icon}
           {...restaurant}
           addReview={this.props.addReview}

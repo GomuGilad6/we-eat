@@ -40,7 +40,7 @@ class restaurants extends React.Component {
   state = {
     fetching: true,
     restaurants: [],
-    cuisines: ["Asian", "Vegeterian"],
+    cuisines: [],
     filters: {
       search: "",
       cuisine: "",
@@ -49,15 +49,37 @@ class restaurants extends React.Component {
       accepts_10bis: false
     },
     sortBy: "",
-    center: { lat: 32.0731537, lng: 34.781884 }
+    center: { lat: 40.7489438, lng: -73.9811553 }
   };
 
   componentDidMount() {
+    const promises = [
+      this._getRestaurants(),
+      this._getCuisines()
+    ];
+    Promise.all(promises)
+      .then(() => this.setState({
+        fetching: false
+      })).catch(e => {
+        console.log(e);
+      });
+  }
+
+  _promiseWrapper = (url, callback) => new Promise((resolve, reject) => {
     asyncRequest({
-      url: '/restaurants'
+      url
     }).then(data => {
+      callback(data);
+      resolve();
+    }).catch(e => {
+      reject(e);
+    });
+  });
+
+  _getRestaurants = () => this._promiseWrapper(
+    '/restaurants',
+    (data) => {
       this.setState({
-        fetching: false,
         restaurants: data.map(restaurant => (
           {
             ...restaurant,
@@ -69,10 +91,17 @@ class restaurants extends React.Component {
           }
         ))
       });
-    }).catch(e => {
-      console.log(e);
-    });
-  }
+    }
+  );
+
+  _getCuisines = () => this._promiseWrapper(
+    '/cuisines',
+    (data) => {
+      this.setState({
+        cuisines: data
+      });
+    }
+  );
 
   _createNotification = ({ type, title = "", message = "", timeout = 3000 }) => {
     switch (type) {
@@ -222,7 +251,6 @@ class restaurants extends React.Component {
   });
 
   _renderFilters = () => {
-    console.log(this.state);
     const { sortBy, filters } = this.state;
     const { cuisine, max_delivery_time, rating, accepts_10bis } = filters;
     return (

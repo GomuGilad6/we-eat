@@ -93,12 +93,12 @@ class Filters extends React.Component {
             Cuisine
           </MenuItem>
           {
-            this.props.cuisines.map(cuisine => (
+            this.props.cuisines.map(({ name, icon }) => (
               <MenuItem
-                key={cuisine}
-                value={cuisine}
+                key={name}
+                value={name}
               >
-                {cuisine}
+                {`${icon} ${name}`}
               </MenuItem>
             ))
           }
@@ -120,7 +120,7 @@ class Filters extends React.Component {
             Rating
           </Typography>
           <ReactStars
-            count={3}
+            count={5}
             value={this.props.rating}
             onChange={this.props.onChange("rating")}
             size={15}

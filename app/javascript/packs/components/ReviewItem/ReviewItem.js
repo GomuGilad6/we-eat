@@ -60,7 +60,7 @@ class RestaurantItem extends React.Component {
   _renderStars = (ratings) => (
     <div>
       <ReactStars
-        count={3}
+        count={5}
         value={ratings}
         edit={false}
         size={12}

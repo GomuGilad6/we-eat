@@ -85,7 +85,7 @@ class AddReview extends React.Component {
         Rating
       </StyledInputLabel>
       <StyledReactStars
-        count={3}
+        count={5}
         size={15}
         value={this.state.fields.rating}
         onChange={this._handleRating}

@@ -11,13 +11,21 @@ class Map extends React.Component {
     </InfoWindow>
   );
 
+  _getAnimation = coordinates => {
+    const { center } = this.props;
+    if (coordinates.lng === center.lng && coordinates.lat === center.lat) {
+      return google.maps.Animation.BOUNCE;
+    }
+    return google.maps.Animation.DROP;
+  };
+
   _renderMarkers = () => this.props.locations.map(location => {
     const { coordinates, icon, infoWindow, openInfoWindow, markerOpen } = location;
     return (
       <Marker
         key={`${coordinates.lat}-${coordinates.lng}`}
         position={coordinates}
-        animation={google.maps.Animation.BOUNCE} /** DROP */
+        animation={this._getAnimation(coordinates)}
         onMouseOver={openInfoWindow}
         onMouseOut={openInfoWindow}
         onClick={openInfoWindow}

@@ -124,7 +124,7 @@ class RestaurantItem extends React.Component {
         (
           <div>
             <ReactStars
-              count={3}
+              count={5}
               value={ratings.reduce((acc, rating) =>  acc + (rating / ratings.length), 0)}
               edit={false}
               size={12}
