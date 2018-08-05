@@ -1,16 +1,20 @@
 {
   "name": "we-eat",
   "private": true,
+  "engines": {
+    "yarn": ">= 1.0.2",
+    "node": ">=6.11.1"
+   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
     "@material-ui/icons": "^2.0.0",
     "@material-ui/lab": "^1.0.0-alpha.8",
+    "@rails/webpacker": "3.5",
     "@storybook/addon-actions": "^3.4.10",
     "@storybook/addon-knobs": "^3.4.10",
     "@storybook/addon-links": "^3.4.10",
     "@storybook/addons": "^3.4.10",
     "@storybook/react": "^3.4.10",
-    "@rails/webpacker": "3.5",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "prop-types": "^15.6.2",
