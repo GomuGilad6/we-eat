@@ -1,11 +1,17 @@
 const sortByAttr = (attr) => (a, b) => {
-  const first = a[attr];
-  const second = b[attr];
   switch (attr) {
     case "name":
+      const first = a[attr];
+      const second = b[attr];
+      return first.localeCompare(second);
     case "rating":
+      const firstReviews = a.reviews;
+      const secondReviews = b.reviews;
+      const firstRating = firstReviews.reduce((acc, el) => acc + el.rating / firstReviews.length, 0);
+      const secondRating = secondReviews.reduce((acc, el) => acc + el.rating / secondReviews.length, 0);
+      return firstRating - secondRating;
     case "max_delivery_time":
-      return first - second;
+      return a[attr] - b[attr];
     default:
       return true;
   }
