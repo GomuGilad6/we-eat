@@ -5,7 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  name              :string
 #  cuisine_id        :bigint(8)
-#  accepts_10bis     :boolean
+#  accepts_10bis     :boolean          default(FALSE)
 #  address           :string
 #  coordinates       :json
 #  max_delivery_time :integer
