@@ -271,13 +271,20 @@ class restaurants extends React.Component {
         </HamburgerWrapper>
       );
     }
-    return [
-      this._renderFilters(),
-      this._renderContent(restaurants)
-    ];
+    return (
+      <div>
+        {this._renderFilters()}
+        {this._renderContent(restaurants)}
+      </div>
+    );
   };
 
   render() {
+    this._createNotification({
+      type: "success",
+      title: "Review Added",
+      message: "Thank you!"
+    });
     const filteredRestaurants = filterRestaurants({
       restaurants: this.state.restaurants,
       filters: this.state.filters

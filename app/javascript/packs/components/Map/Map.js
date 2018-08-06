@@ -19,11 +19,11 @@ class Map extends React.Component {
     return google.maps.Animation.DROP;
   };
 
-  _renderMarkers = () => this.props.locations.map(location => {
+  _renderMarkers = () => this.props.locations.map((location, index) => {
     const { coordinates, icon, infoWindow, openInfoWindow, markerOpen } = location;
     return (
       <Marker
-        key={`${coordinates.lat}-${coordinates.lng}`}
+        key={index}
         position={coordinates}
         animation={this._getAnimation(coordinates)}
         onMouseOver={openInfoWindow}
