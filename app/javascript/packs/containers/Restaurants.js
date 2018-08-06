@@ -8,6 +8,7 @@ import Map from "../components/Map";
 import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
 import RestaurantItem from "../components/RestaurantItem";
+import Hamburger from "../components/Hamburger";
 
 import asyncRequest from "../services/asyncRequest";
 import filterRestaurants from "../helpers/filterRestaurants";
@@ -34,6 +35,11 @@ const SearchBarWrapper = styled("div")`
   top: 65%;
   transform: translate(-50%,0);
   width: 20%;
+`;
+
+const HamburgerWrapper = styled("div")`
+  display: flex;
+  height: calc(100vh - 450px);
 `;
 
 class restaurants extends React.Component {
@@ -209,21 +215,12 @@ class restaurants extends React.Component {
     </MapWrapper>
   );
 
-  _renderContent = (restaurants) => {
-    if (this.state.fetching) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
-    }
-    return (
+  _renderContent = (restaurants) => (
       <Content>
         {this._renderRestaurants(restaurants)}
         {this._renderMap(restaurants)}
       </Content>
     );
-  };
 
   _onChange = (filter) => (e, val) => {
     const value = val !== undefined ? val : e.target !== undefined ? e.target.value : e;
@@ -266,6 +263,20 @@ class restaurants extends React.Component {
     ); 
   };
 
+  _renderPage = (restaurants) => {
+    if (this.state.fetching) {
+      return (
+        <HamburgerWrapper>
+          <Hamburger />
+        </HamburgerWrapper>
+      );
+    }
+    return [
+      this._renderFilters(),
+      this._renderContent(restaurants)
+    ];
+  };
+
   render() {
     const filteredRestaurants = filterRestaurants({
       restaurants: this.state.restaurants,
@@ -278,8 +289,7 @@ class restaurants extends React.Component {
     return (
       <div>
         {this._renderHero()}
-        {this._renderFilters()}
-        {this._renderContent(restaurants)}
+        {this._renderPage(restaurants)}
         <NotificationContainer />
       </div>
     );

@@ -123,6 +123,7 @@ const TopBun = styled("div")`
     background-color: #ff7f07;
     box-shadow: inset rgba(black, 0.1) 21px 0 0;
     z-index: -1;
+    box-sizing: border-box;
   }
   &:before {
     top: 0; left: -(7px);
@@ -151,6 +152,7 @@ const eye = css`
   background-color: #ff7f07;
   border: 7px solid #701e13;
   border-radius: 100%;
+  box-sizing: border-box;
   &:before {
     content: "";
     position: absolute;
@@ -279,6 +281,7 @@ const Tomato = styled("div")`
   border-radius: 100px;
   z-index: 3;
   animation: ${tomato} 1s ease-in-out infinite;
+  box-sizing: border-box;
   &:before {
     content: "";
     position: absolute;
@@ -312,9 +315,11 @@ const Leaf = styled("div")`
   &:nth-child(1) {
     left: 0;
     background-color: #7e911d;
+    box-sizing: border-box;
   }
   &:nth-child(2) {
     left: 24px;
+    box-sizing: border-box;
     &:after {
       content: "";
       position: absolute;
@@ -329,15 +334,19 @@ const Leaf = styled("div")`
   }
   &:nth-child(3) {
     left: 48px;
+    box-sizing: border-box;
   }
   &:nth-child(4) {
     left: 72px;
+    box-sizing: border-box;
   }
   &:nth-child(5) {
     left: 96px;
+    box-sizing: border-box;
   }
   &:nth-child(6) {
     left: 120px;
+    box-sizing: border-box;
   }
 `;
 
@@ -350,6 +359,7 @@ const Cover = styled("div")`
   background-color: #b3ba27;
   border-top: 7px solid #701e13;
   z-index: 2;
+  box-sizing: border-box;
   &:before {
     content: "";
     position: absolute;
@@ -374,6 +384,7 @@ const Arch = styled("div")`
   border-radius: 100px 100px 0 0;
   &:nth-child(1) {
     left: 6px;
+    box-sizing: border-box;
     &:before {
       content: "";
       position: absolute;
@@ -386,15 +397,19 @@ const Arch = styled("div")`
   }
   &:nth-child(2) {
     left: 30px;
+    box-sizing: border-box;
   }
   &:nth-child(3) {
     left: 54px;
+    box-sizing: border-box;
   }
   &:nth-child(4) {
     left: 78px;
+    box-sizing: border-box;
   }
   &:nth-child(5) {
     left: 102px;
+    box-sizing: border-box;
   }
 `;
 
@@ -406,6 +421,7 @@ const Cheese = styled("div")`
   background-color: #edb039;
   border: 7px solid #701e13;
   border-top-width: 0;
+  box-sizing: border-box;
   &:before {
     content: "";
     position: absolute;
@@ -426,6 +442,7 @@ const Burger = styled("div")`
   border: 7px solid #701e13;
   border-radius: 100px;
   animation: ${burger} 1s ease-in-out infinite;
+  box-sizing: border-box;
   &:before {
     content: "";
     position: absolute;
@@ -525,6 +542,7 @@ const BottomBun = styled("div")`
   box-shadow: inset rgba(black, 0.1) 21px 0 0;
   z-index: 2;
   animation: ${bunBottom} 1s ease-in-out infinite;
+  box-sizing: border-box;
 `;
 
 const Shadow = styled("div")`
