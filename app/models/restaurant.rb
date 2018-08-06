@@ -16,5 +16,9 @@
 class Restaurant < ApplicationRecord
   belongs_to :cuisine
   has_many :reviews
-  validates :name, :cuisine_id, presence: true
+  validates :name,
+            :cuisine_id,
+            :address,
+            :coordinates,
+            :max_delivery_time, presence: true
 end

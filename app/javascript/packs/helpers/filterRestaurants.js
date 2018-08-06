@@ -11,7 +11,7 @@ const filterByAttr = (attr, filter, restaurant) => {
       const rating = restaurant.reviews.reduce((acc, { rating }) =>
         acc + rating / restaurant.reviews.length
       , 0);
-      return filter === 0 || rating <= filter;
+      return filter === 0 || rating >= filter;
     case "accepts_10bis":
       return !filter || restaurant.accepts_10bis;
     default:
