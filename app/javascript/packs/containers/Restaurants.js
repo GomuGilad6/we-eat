@@ -280,11 +280,6 @@ class restaurants extends React.Component {
   };
 
   render() {
-    this._createNotification({
-      type: "success",
-      title: "Review Added",
-      message: "Thank you!"
-    });
     const filteredRestaurants = filterRestaurants({
       restaurants: this.state.restaurants,
       filters: this.state.filters
